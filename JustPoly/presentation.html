@@ -1677,6 +1677,53 @@
         viewer.status.classList.toggle("hidden", isHidden);
       }
 
+      function createStatsOverlay(container) {
+        const stats = document.createElement("div");
+        stats.className =
+          "viewer-stats hidden absolute right-[12px] top-[12px] z-[2] grid gap-[3px] min-w-[128px] px-[10px] py-[8px] rounded-[6px] text-accent-strong bg-white/[0.9] border border-line text-[12px] font-[800] leading-[1.25] pointer-events-none shadow-card";
+        stats.setAttribute("aria-live", "polite");
+        container.appendChild(stats);
+        return stats;
+      }
+
+      function getMeshStats(root) {
+        const stats = {
+          vertices: 0,
+          triangles: 0,
+        };
+
+        root.traverse((node) => {
+          if (!node.isMesh || !node.geometry) return;
+
+          const geometry = node.geometry;
+          const position = geometry.getAttribute("position");
+          if (!position) return;
+
+          stats.vertices += position.count;
+
+          const index = geometry.getIndex();
+          const triangleSourceCount = index ? index.count : position.count;
+          stats.triangles += Math.floor(triangleSourceCount / 3);
+        });
+
+        return stats;
+      }
+
+      function setViewerStats(viewer, stats) {
+        if (!viewer.stats) return;
+        if (!stats) {
+          viewer.stats.classList.add("hidden");
+          viewer.stats.textContent = "";
+          return;
+        }
+
+        viewer.stats.innerHTML = `
+          <span>Vertices ${stats.vertices.toLocaleString()}</span>
+          <span>Triangles ${stats.triangles.toLocaleString()}</span>
+        `;
+        viewer.stats.classList.remove("hidden");
+      }
+
       function createThreeViewer(container, options = {}) {
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0xe9eef2);
@@ -1714,6 +1761,7 @@
         const viewer = {
           container,
           status: container.querySelector(".viewer-status"),
+          stats: createStatsOverlay(container),
           scene,
           camera,
           renderer,
@@ -1819,6 +1867,7 @@
       async function loadModel(viewer, url) {
         viewer.currentUrl = url;
         setViewerStatus(viewer, `Loading ${url.split("/").pop()}`);
+        setViewerStats(viewer, null);
         disposeModel(viewer);
 
         try {
@@ -1844,9 +1893,11 @@
             }
           });
 
+          const stats = getMeshStats(root);
           normalizeModel(root);
           viewer.modelRoot = root;
           viewer.scene.add(root);
+          setViewerStats(viewer, stats);
           if (viewer.isCompare) {
             setWireframe(
               viewer,
@@ -1860,6 +1911,7 @@
         } catch (error) {
           console.error(error);
           setViewerStatus(viewer, `Failed to load ${url.split("/").pop()}`);
+          setViewerStats(viewer, null);
         }
       }
 
