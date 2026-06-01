@@ -18,33 +18,33 @@
         theme: {
           extend: {
             colors: {
-              bg: "#f6f7f9",
-              panel: "#ffffff",
-              "panel-soft": "#eef3f7",
-              ink: "#17202a",
-              muted: "#66717e",
-              line: "#d9e0e7",
-              accent: "#176f8f",
-              "accent-strong": "#0f536c",
-              warn: "#a64b20",
-              good: "#247a50",
+              bg: '#f6f7f9',
+              panel: '#ffffff',
+              'panel-soft': '#eef3f7',
+              ink: '#17202a',
+              muted: '#66717e',
+              line: '#d9e0e7',
+              accent: '#176f8f',
+              'accent-strong': '#0f536c',
+              warn: '#a64b20',
+              good: '#247a50'
             },
             borderRadius: {
-              DEFAULT: "8px",
-              sm: "6px",
-              xs: "4px",
+              DEFAULT: '8px',
+              sm: '6px',
+              xs: '4px'
             },
             boxShadow: {
-              card: "0 10px 30px rgba(21, 34, 47, 0.06)",
-              panel: "0 18px 55px rgba(21, 34, 47, 0.12)",
-              nav: "0 10px 34px rgba(21, 34, 47, 0.14)",
+              card: '0 10px 30px rgba(21, 34, 47, 0.06)',
+              panel: '0 18px 55px rgba(21, 34, 47, 0.12)',
+              nav: '0 10px 34px rgba(21, 34, 47, 0.14)'
             },
             screens: {
-              "bp-md": { max: "1080px" },
-              "bp-sm": { max: "680px" },
-            },
-          },
-        },
+              'bp-md': { max: '1080px' },
+              'bp-sm': { max: '680px' }
+            }
+          }
+        }
       };
     </script>
     <style type="text/tailwindcss">
@@ -65,7 +65,7 @@
             system-ui,
             -apple-system,
             BlinkMacSystemFont,
-            "Segoe UI",
+            'Segoe UI',
             sans-serif;
           letter-spacing: 0;
         }
@@ -163,10 +163,46 @@
           min-height: 0;
         }
 
+        .slide:has(.content-fit) {
+          overflow: hidden;
+        }
+        .slide:has(.content-fit) .slide-inner {
+          height: 100%;
+          min-height: unset;
+        }
+        .content-fit {
+          flex: 1;
+          min-height: 0;
+        }
+
         .segmented button.active,
         .toggle.active {
           color: #fff;
           background: #176f8f;
+        }
+        .tab-menu-item {
+          display: block;
+          width: 100%;
+          text-align: left;
+          padding: 10px 14px;
+          border: 1px solid transparent;
+          border-radius: 6px;
+          background: transparent;
+          cursor: pointer;
+          font-weight: 700;
+          color: var(--ink);
+          transition:
+            background 0.15s,
+            border-color 0.15s;
+          word-break: keep-all;
+        }
+        .tab-menu-item:hover {
+          border-color: #176f8f;
+        }
+        .tab-menu-item.active {
+          background: #176f8f;
+          color: #fff;
+          border-color: #176f8f;
         }
         .nav button:hover,
         .segmented button:hover,
@@ -214,6 +250,22 @@
         .card h3 {
           margin-bottom: 12px;
         }
+        .card img {
+          max-width: 100%;
+          max-height: 50vh;
+          width: auto;
+          height: auto;
+          display: block;
+        }
+        .case-img {
+          width: 100%;
+          max-height: 40vh;
+          height: auto;
+          object-fit: contain;
+          display: block;
+          border-radius: 8px;
+          border: 1px solid #d9e0e7;
+        }
         .card p,
         .card li {
           font-size: clamp(16px, 1.5vw, 20px);
@@ -224,6 +276,16 @@
 
         .progress span {
           transition: width 180ms ease;
+        }
+
+        .img-overlap-card {
+          transition: box-shadow 0.2s ease;
+        }
+        .img-overlap-card:hover {
+          z-index: 3 !important;
+          box-shadow: 0 18px 55px rgba(21, 34, 47, 0.18);
+          width: 80% !important;
+          height: 80% !important;
         }
 
         @media (max-width: 1080px) {
@@ -260,15 +322,11 @@
       aria-live="polite"
     >
       <section class="slide active">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)] justify-center"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
+        <div class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)] justify-center">
+          <p class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]">
             AI 3D Mesh Optimization
           </p>
-          <h1>TRELLIS 결과물을 웹에서 더 잘 쓰기 위한 최적화 실험</h1>
+          <h1>TRELLIS 결과물을<br />웹에서 더 잘 쓰기 위한 최적화 실험</h1>
           <p class="lead text-muted leading-[1.45]">
             AI 생성 3D mesh를 최적화 중 관점 변화를 정리:<br />
             geometry reduction 중심 → appearance preservation 중심
@@ -277,331 +335,234 @@
       </section>
 
       <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
-            Seminar Context
+        <div class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]">
+          <p class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]">
+            Background
           </p>
-          <h2>이 발표의 관점</h2>
-          <p class="lead text-muted leading-[1.45]">
-            정답 알고리즘을 소개하기보다, 실제 실험 중 문제 정의가 어떻게
-            바뀌었는지를 공유한다.
-          </p>
-          <div
-            class="grid gap-[18px] [grid-template-rows:repeat(3,minmax(0,1fr))]"
-          >
+          <h2>AI 생성 3D Asset이 필요했던 이유</h2>
+          <div class="relative flex-1 min-h-0">
             <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
+              class="img-overlap-card card bg-white border border-line rounded-[8px] p-[22px] shadow-card absolute flex flex-col top-0 left-0"
+              style="width: 60%; height: 60%; z-index: 2"
             >
-              <h3>초기 판단</h3>
-              <p>
-                AI mesh는 messy하므로 polygon을 줄이고 clean low poly로
-                재구성해야 한다고 봤다.
-              </p>
+              <img
+                src="./data/img/img1.png"
+                alt="배경설명1"
+                class="w-full block rounded-[4px] flex-1 min-h-0 object-contain object-top"
+              />
             </article>
             <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
+              class="img-overlap-card card bg-white border border-line rounded-[8px] p-[22px] shadow-card absolute flex flex-col bottom-0 right-0"
+              style="width: 60%; height: 60%; z-index: 1"
             >
-              <h3>실험 중 관찰</h3>
-              <p>
-                더 정교한 reconstruction이 texture, shading, silhouette의
-                coherence를 깨뜨릴 수 있었다.
-              </p>
-            </article>
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>최종 관점</h3>
-              <p>
-                AI 생성 asset에서는 geometry purity보다 appearance
-                preservation이 더 중요할 수 있다.
-              </p>
+              <img
+                src="./data/img/img2.png"
+                alt="배경설명2"
+                class="w-full block rounded-[4px] flex-1 min-h-0 object-contain object-top"
+              />
             </article>
           </div>
         </div>
       </section>
 
       <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)] justify-center"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
-            Main Observation
+        <div class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]">
+          <p class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]">
+            Trellis2
           </p>
-          <div
-            class="quote py-[28px] px-[32px] border-l-[6px] border-l-accent bg-white shadow-panel rounded-[8px] leading-[1.25] font-[760] [word-break:keep-all]"
-          >
-            AI 생성 mesh를 높은 품질로 경량화하기: geometry reconstruction →
-            appearance preservation
-          </div>
-          <div
-            class="grid gap-[18px] [grid-template-rows:repeat(3,minmax(0,1fr))]"
-          >
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>Case 1</h3>
-              <p>PyMeshLab + Blender<br />QEM + UV rebuild + rebake</p>
-            </article>
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>Case 2</h3>
-              <p>
-                PIF 기반 (Perceptual Importance Field)<br />perceptual-aware
-                reconstruction
-              </p>
-            </article>
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>Case 3</h3>
-              <p>AIMeshOptimizer(Blender 기반)<br />Preserve-first</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
-            Approach Matrix
-          </p>
-          <h2>세 접근법의 핵심 차이</h2>
-          <table
-            class="bg-white border border-line rounded-[8px] overflow-hidden shadow-card"
-          >
-            <thead>
-              <tr>
-                <th>항목</th>
-                <th>Case 1</th>
-                <th>Case 2</th>
-                <th>Case 3</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>핵심 철학</td>
-                <td>Reconstruction</td>
-                <td>Perceptual Reconstruction</td>
-                <td>Preservation</td>
-              </tr>
-              <tr>
-                <td>목표</td>
-                <td>geometry, texture 재구성</td>
-                <td>시각 중요도 기반 재구성</td>
-                <td>기존 표현 최대 보존</td>
-              </tr>
-              <tr>
-                <td>UV/Texture</td>
-                <td>새 UV + Rebake(/w Cage)</td>
-                <td>새 UV + Rebake(/w Adaptive Cage)</td>
-                <td>기존 UV/texture 유지</td>
-              </tr>
-              <tr>
-                <td>폴리곤 축소</td>
-                <td>QEM, PyMeshLab</td>
-                <td>PIF 기반 QEM, PyMeshLab</td>
-                <td>Blender Decimate</td>
-              </tr>
-              <tr>
-                <td>강점</td>
-                <td>자동화된 low poly 생성</td>
-                <td>중요 영역 보존 실험 가능</td>
-                <td>appearance coherence 유지</td>
-              </tr>
-              <tr>
-                <td>약점</td>
-                <td>텍스쳐 오염(baking artifact)</td>
-                <td>튜닝 복잡도</td>
-                <td>(geometry intelligence 부족)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
-            Case 1
-          </p>
-          <h2>프로토타입: QEM + Rebake</h2>
-          <p class="lead text-muted leading-[1.45]">
-            AI mesh는 messy하므로 새로운 clean low poly asset으로 재구성해야
-            한다는 전제로 설계했다.
-          </p>
-          <div
-            class="flex items-center justify-between gap-[10px]"
-            aria-label="Case 1 pipeline"
-          >
+          <h2>사진 한 장으로 고품질 3D Asset 생성</h2>
+          <div class="viewer-shell flex flex-col gap-[18px]">
             <div
-              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[92px] [word-break:keep-all]"
+              class="flex items-center justify-between gap-[10px]"
+              aria-label="Trellis2 pipeline"
+            >
+              <div
+                class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
+              >
+                입력 이미지
+              </div>
+              <div>→</div>
+              <div
+                class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-accent text-white border border-accent rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
+              >
+                Trellis2
+              </div>
+              <div>→</div>
+              <div
+                class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
+              >
+                GLB / OBJ
+              </div>
+            </div>
+            <div
+              class="grid gap-[18px] grid-cols-2 bp-md:grid-cols-1 flex-1 min-h-0 [grid-template-rows:1fr]"
+            >
+              <article
+                class="card bg-white border border-line rounded-[8px] p-[18px] shadow-card flex flex-col min-h-0 overflow-hidden"
+              >
+                <h3>원본 이미지</h3>
+                <img
+                  src="./data/img/tank.png"
+                  alt="원본 이미지"
+                  class="w-full block rounded-[4px] flex-1 min-h-0 object-contain object-top"
+                />
+              </article>
+              <article
+                class="card bg-white border border-line rounded-[8px] p-[18px] shadow-card flex flex-col min-h-0 overflow-hidden"
+              >
+                <div class="flex items-center justify-between" style="margin-bottom: 12px">
+                  <h3 style="margin: 0">생성된 3D 모델</h3>
+                  <button
+                    type="button"
+                    class="toggle min-h-[34px] border border-line px-[10px] py-[6px] text-ink bg-white cursor-pointer font-[760] whitespace-nowrap rounded-[6px] text-[13px]"
+                    data-wireframe-toggle="trellis"
+                    aria-pressed="false"
+                  >
+                    와이어프레임
+                  </button>
+                </div>
+                <div
+                  class="three-viewer relative w-full overflow-hidden flex-1 min-h-0 bg-[#e9eef2] rounded-[4px]"
+                  data-compare-viewer="trellis"
+                  data-compare-group="trellis"
+                  data-src="data/resource/tank.glb"
+                  role="img"
+                  aria-label="Trellis2 generated 3D model viewer"
+                  tabindex="0"
+                >
+                  <div
+                    class="viewer-status absolute left-[12px] bottom-[12px] z-[2] max-w-[calc(100%-24px)] px-[10px] py-[7px] rounded-[6px] text-muted bg-white/[0.88] border border-line text-[13px] font-[750] pointer-events-none"
+                  >
+                    Loading tank.glb
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]">
+          <p class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]">
+            Problem Definition
+          </p>
+          <h2>문제의 해결 방향</h2>
+
+          <div class="content-fit flex flex-col gap-6">
+            <div
+              class="quote py-[28px] px-[32px] border-l-[6px] border-l-accent bg-white shadow-panel rounded-[8px] leading-[1.35] font-[760] [word-break:keep-all]"
+            >
+              "좋은 Mesh를 어떻게 <span class="text-warn">만드는가</span>?" - ❌<br />
+              <br />
+              "좋은 Mesh를 어떻게 <span class="text-good">최적화할 것인가</span>?" - ✅
+            </div>
+            <article
+              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card flex flex-col flex-1 min-h-0 overflow-hidden"
+            >
+              <img
+                src="./data/img/img3.png"
+                alt="배경설명3"
+                class="w-full block rounded-[4px] flex-1 min-h-0 object-contain object-top"
+              />
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]">
+          <p class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]">Case 1</p>
+          <h2>프로토타입: QEM + Rebake</h2>
+          <div class="flex items-center justify-between gap-[10px]" aria-label="Case 1 pipeline">
+            <div
+              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
             >
               High Poly GLB
             </div>
             <div>→</div>
             <div
-              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[92px] [word-break:keep-all]"
+              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
             >
               Cleanup
             </div>
             <div>→</div>
             <div
-              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[92px] [word-break:keep-all]"
+              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
             >
               QEM Simplification
             </div>
             <div>→</div>
             <div
-              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[92px] [word-break:keep-all]"
+              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
             >
               새 UV 생성
             </div>
             <div>→</div>
             <div
-              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[92px] [word-break:keep-all]"
+              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
             >
               Texture Rebake
             </div>
             <div>→</div>
             <div
-              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[92px] [word-break:keep-all]"
+              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
             >
               Low Poly GLB
             </div>
           </div>
-          <div class="grid gap-[18px] grid-cols-2 bp-md:grid-cols-1">
+          <div class="flex gap-[18px] bp-md:flex-col" data-tabpanel-group="case1-logic">
+            <nav class="flex-shrink-0 w-[180px] bp-md:w-full">
+              <ul class="flex flex-col gap-[4px] list-none p-0 m-0">
+                <li>
+                  <button type="button" class="tab-menu-item active" data-tab="step1">
+                    1. Polygon 정점 정리
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="tab-menu-item" data-tab="step2">
+                    2. 새 UV map 생성
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="tab-menu-item" data-tab="step3">
+                    3. 새 Texture 생성
+                  </button>
+                </li>
+              </ul>
+            </nav>
             <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
+              class="card flex-1 bg-white border border-line rounded-[8px] p-[22px] shadow-card"
             >
-              <h3>핵심 로직</h3>
-              <ul>
-                <li class="list-disc">CleanUp + 정규화(PyMeshLab)</li>
-                <li class="list-disc">
-                  (triangulation, degenerate dissolve, remove doubles)
-                </li>
-                <li class="list-disc">새 UV 생성: Smart UV(Blender)</li>
-                <li class="list-disc">
-                  새 Texture 생성: Rebake + Cage (Blender)
-                </li>
+              <div data-tab-panel="step1">
+                <h3>Polygon 정점 정리: <span>Cleanup + QEM (PyMeshLab)</span></h3>
+                <p>
+                  정점 수를 줄이기 위해서, 불필요한 정점을 제거하고 근사한 정점들을 병합하는 과정
+                </p>
+                <img src="./data/img/qem.webp" alt="qem" />
+              </div>
+              <div data-tab-panel="step2" hidden>
+                <h3>새 UV map 생성: <span>Smart UV (Blender)</span></h3>
+                <p>
+                  3D 메쉬의 표면의 각 지점이 텍스쳐 이미지(2D)의 어느 위치를 참조할지 정의하는 좌표
+                  정보
+                </p>
+                <p>(0~1 범위의 정규화된 비율 값으로 저장)</p>
+                <img src="./data/img/uvmap.png" alt="uvmap" />
+              </div>
+              <div data-tab-panel="step3" hidden>
+                <h3>새 Texture 생성: <span>Rebake + Cage (Blender)</span></h3>
+                <p>Low Poly에 적용할 새로운 Texture를 생성하기 위해, High Poly를 샘플링하는 과정</p>
                 <img src="./data/img/cagebaking.gif" alt="cage" />
-              </ul>
-            </article>
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>문제</h3>
-              <ul>
-                <li class="list-disc">UV가 정규화 단계에서 소실됨</li>
-                <li class="list-disc">
-                  thin extrusion에서 texture contamination 발생
-                </li>
-                <li class="list-disc">
-                  geometry는 정리되지만 시각 품질은 손상될 수 있음
-                </li>
-              </ul>
+              </div>
             </article>
           </div>
         </div>
       </section>
 
       <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
-            Case 1 Detail
-          </p>
-          <h2>재구성 파이프라인에서 생긴 문제</h2>
-          <p class="lead text-muted leading-[1.45]">
-            Case 1은 자동화된 low poly 생성에는 성공했지만, UV와 texture를 다시
-            만드는 순간 시각 품질 리스크가 커졌다.
-          </p>
-          <div
-            class="grid gap-[18px] [grid-template-rows:repeat(3,minmax(0,1fr))]"
-          >
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>표준화</h3>
-              <ul>
-                <li class="list-disc">
-                  geometry processing을 위해 GLB를 canonical OBJ 형태로 정규화
-                </li>
-                <li class="list-disc">
-                  mesh merge, triangulation, degenerate 제거, normal 재계산 수행
-                </li>
-                <li class="list-disc">
-                  이 단계에서 기존 UV가 소실되어 이후 pipeline이 reconstruction
-                  중심이 됨
-                </li>
-              </ul>
-            </article>
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>QEM Reduction</h3>
-              <ul>
-                <li class="list-disc">
-                  QEM은 형상 오차를 줄이면서 polygon 수를 줄이는 simplification
-                  방식
-                </li>
-                <li class="list-disc">
-                  <code>curvature</code>와 <code>visibility</code>를 조합해
-                  중요도를 계산:
-                  <code>combined = curvature * (0.3 + 0.7 * visibility)</code>
-                </li>
-                <li class="list-disc">
-                  평탄하고 덜 보이는 영역을 먼저 줄이는 전략을 적용
-                </li>
-              </ul>
-            </article>
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>Rebake Risk</h3>
-              <ul>
-                <li class="list-disc">
-                  baking은 high poly의 시각 정보를 low poly texture로 옮기는
-                  과정
-                </li>
-                <li class="list-disc">
-                  새 UV를 만들고 texture를 다시 옮기면서 source/target 대응이
-                  꼬일 수 있음
-                </li>
-                <li class="list-disc">
-                  난간, 창틀 같은 thin extrusion에서 texture contamination이
-                  두드러짐
-                </li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
+        <div class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]">
+          <p class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]">
             Case 1 Result
           </p>
           <h2>프로토타입 결과물</h2>
@@ -615,9 +576,7 @@
                 role="group"
                 aria-label="Case 1 model selection"
               >
-                <button type="button" data-model="tank" class="active">
-                  tank
-                </button>
+                <button type="button" data-model="tank" class="active">tank</button>
                 <button type="button" data-model="building">building</button>
                 <button type="button" data-model="hotel">hotel</button>
                 <button type="button" data-model="tofu">tofu</button>
@@ -697,211 +656,105 @@
       </section>
 
       <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
-            Case 2
+        <div class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]">
+          <p class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]">
+            Case 1 Detail
           </p>
+          <h2>UV + Texture에서 생긴 문제</h2>
+          <div class="flex flex-col gap-[18px]">
+            <article class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card">
+              <h3>Rebake Risk</h3>
+              <ul>
+                <li class="list-disc">
+                  새 UV를 만들고 texture를 다시 옮기면서 source/target 대응이 꼬일 수 있음
+                </li>
+                <li class="list-disc">
+                  난간, 창틀 같은 thin extrusion에서 texture contamination이 두드러짐
+                </li>
+              </ul>
+            </article>
+            <div class="grid grid-cols-2 gap-[18px]">
+              <div>
+                <p>원본 텍스쳐</p>
+                <img
+                  src="./data/img/tank_resource (2048x2048).png"
+                  alt="원본 텍스처"
+                  class="case-img"
+                />
+              </div>
+              <div>
+                <p>Rebake 텍스쳐</p>
+                <img
+                  src="./data/img/tank_case1 (1024x1024).png"
+                  alt="Case 1 결과"
+                  class="case-img"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]">
+          <p class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]">Case 2</p>
           <h2>PIF 기반 리팩토링(Perceptual Importance Field)</h2>
           <p class="lead text-muted leading-[1.45]">
-            단순 decimation이 아니라, 사람이 중요하게 보는 영역과 구조적 특징을
-            보존하려는 reconstruction 접근
+            중요도(PIF)를 계산하여 메쉬의 영역별로 폴리곤 감소 정책을 차등 적용
           </p>
-          <div class="grid gap-[18px] grid-cols-2 bp-md:grid-cols-1">
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>Stage 세분화</h3>
-              <ol>
-                <li class="list-disc">Canonicalize</li>
-                <li class="list-disc">PIF Generate</li>
-                <li class="list-disc">Region Evaluation</li>
-                <li class="list-disc">Adaptive QEM Reduction</li>
-                <li class="list-disc">Bake</li>
-                <li class="list-disc">Package</li>
-              </ol>
-            </article>
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>PIF 요소</h3>
-              <ul>
-                <li class="list-disc">visibility: 잘 보이는 영역</li>
-                <li class="list-disc">curvature: 곡률과 디테일</li>
-                <li class="list-disc">thin heuristic: 얇은 구조 보호</li>
-                <li class="list-disc">structural: 작은 구조적 요소 보존</li>
-              </ul>
-            </article>
-          </div>
-          <article
-            class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-          >
-            <h3>핵심 결과</h3>
-            <p>더 정교한 heuristic과 weighting은 실험 가능성을 높였다.</p>
-            <p>
-              하지만 AI mesh의 appearance illusion과 충돌하면서 반드시 더 좋아
-              보이는 결과를 보장하지는 않았다.
-            </p>
-          </article>
-        </div>
-      </section>
 
-      <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
-            Case 2 Detail
-          </p>
-          <h2>PIF와 Region Evaluation</h2>
-          <p class="lead text-muted leading-[1.45]">
-            PIF는 어디를 더 조심해서 줄일지 알려주는 importance field이고,<br />
-            Region Evaluation은 그 중요도를 실제 decimation 정책으로 바꾸는
-            단계다.
-          </p>
-          <div class="grid gap-[18px] grid-cols-2 bp-md:grid-cols-1">
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>PIF 구성 요소</h3>
-              <ul>
-                <li class="list-disc">
-                  <code>visibility</code>: 사용자에게 잘 보이는 영역
-                </li>
-                <li class="list-disc">
-                  <code>curvature</code>: 곡률이 높아 형태 변화가 눈에 띄는 영역
-                </li>
-                <li class="list-disc">
-                  <code>thin heuristic</code>: collapse에 취약한 얇은 구조
-                </li>
-                <li class="list-disc">
-                  <code>structural</code>: silhouette에 영향을 주는 작은 구조적
-                  요소
-                </li>
-              </ul>
-            </article>
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>Region 정책</h3>
-              <ul>
-                <li class="list-disc">
-                  <code>boundary_important</code>: 경계와 silhouette 보존 우선
-                </li>
-                <li class="list-disc">
-                  <code>thin_sensitive</code>: 얇은 구조의 aggressive decimation
-                  억제
-                </li>
-                <li class="list-disc">
-                  <code>noisy_low_value</code>: 내부 잡음과 garbage topology는
-                  적극 감산
-                </li>
-                <li class="list-disc">
-                  <code>planar_like</code>: 벽/바닥처럼 평면적인 영역은 더 많이
-                  줄임
-                </li>
-              </ul>
-            </article>
-          </div>
-          <article
-            class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-          >
-            <h3>의도</h3>
-            <p>
-              모든 polygon을 같은 기준으로 줄이지 않고,<br />
-              시각적으로 중요한 부분은 보호하고<br />
-              덜 중요한 부분은 더 줄이는 방향으로 QEM을 제어하려 했다.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
-            Case 2 Baking
-          </p>
-          <h2>Baking 개선은 방어 장치였다</h2>
-          <p class="lead text-muted leading-[1.45]">
-            Case 2의 복잡도 증가는 대부분 bake artifact를 줄이기 위한 방어
-            장치에서 발생했다.
-          </p>
-          <div class="flex flex-col gap-4">
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[18px] shadow-card"
-            >
-              <h3>PIF Seam UV</h3>
-              <ul>
-                <li class="list-disc">
-                  UV seam은 3D 표면을 2D texture 공간으로 펼칠 때 생기는 절개선
-                </li>
-                <li class="list-disc">
-                  중요 영역의 왜곡을 줄이기 위해 seam 위치를 importance 기반으로
-                  조정
-                </li>
-                <li class="list-disc">
-                  <code>texture_size</code>, <code>angle_limit</code>,
-                  <code>island_margin</code> 같은 파라미터가 추가됨
-                </li>
-              </ul>
-            </article>
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[18px] shadow-card"
-            >
-              <h3>Adaptive Cage</h3>
-              <ul>
-                <li class="list-disc">
-                  cage/ray distance는 bake 시 high/low mesh 대응을 찾는 탐색
-                  범위
-                </li>
-                <li class="list-disc">
-                  thin geometry에서 self-hit이나 잘못된 내부면 hit을 피하려고
-                  영역별 offset을 조정
-                </li>
-                <li class="list-disc">
-                  <code>cage_extrusion</code>, <code>max_ray_distance</code>,
-                  <code>ray_bias</code>를 제어
-                </li>
-              </ul>
-            </article>
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[18px] shadow-card"
-            >
-              <h3>Inner Surface Suppression</h3>
-              <ul>
-                <li class="list-disc">
-                  가설: high poly 내부면이 외부 texture bake를 오염시킬 수 있음
-                </li>
-                <li class="list-disc">
-                  multi-hop ray cast로 내부면 영향을 줄이려 시도
-                </li>
-              </ul>
-            </article>
-          </div>
-          <div
-            class="quote py-[20px] px-[24px] border-l-[6px] border-l-accent bg-white shadow-panel rounded-[8px] leading-[1.25] font-[760] [word-break:keep-all]"
-          >
-            더 많은 heuristic이 더 좋은 perceptual result를 보장하지는 않았다.
+          <div class="flex flex-col gap-[18px] items-center">
+            <div class="flex items-center justify-between gap-[10px]" aria-label="Case 2 pipeline">
+              <div
+                class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
+              >
+                Canonicalize
+              </div>
+              <div>→</div>
+              <div
+                class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
+              >
+                <strong>(new)</strong>PIF Generate
+              </div>
+              <div>→</div>
+              <div
+                class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
+              >
+                <strong>(new)</strong>Region Evaluation
+              </div>
+              <div>→</div>
+              <div
+                class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
+              >
+                (adaptive)QEM Reduction
+              </div>
+              <div>→</div>
+              <div
+                class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
+              >
+                (adaptive)Bake
+              </div>
+              <div>→</div>
+              <div
+                class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
+              >
+                Package
+              </div>
+            </div>
+            <div class="card">
+              <img
+                src="./data/img/pif.png"
+                alt="pif"
+                class="w-full block rounded-[4px] flex-1 min-h-0 object-contain object-top"
+              />
+            </div>
           </div>
         </div>
       </section>
 
       <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
+        <div class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]">
+          <p class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]">
             Case 2 Result
           </p>
           <h2>PIF 리팩토링 결과물</h2>
@@ -915,9 +768,7 @@
                 role="group"
                 aria-label="Case 2 model selection"
               >
-                <button type="button" data-model="tank" class="active">
-                  tank
-                </button>
+                <button type="button" data-model="tank" class="active">tank</button>
                 <button type="button" data-model="building">building</button>
                 <button type="button" data-model="hotel">hotel</button>
                 <button type="button" data-model="tofu">tofu</button>
@@ -997,168 +848,94 @@
       </section>
 
       <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
-            Case 3
-          </p>
-          <h2>AIMeshOptimizer: Preserve First</h2>
-          <p class="lead text-muted leading-[1.45]">
-            Blender 기반의 단순한 처리만으로 기존 UV, texture, shading, tangent
-            continuity를 최대한 유지한다. <br />
-            핵심 차이: 새 UV와 rebake를 만들지 않는다.
-          </p>
-          <div
-            class="flex items-center justify-between gap-[10px]"
-            aria-label="Case 3 pipeline"
-          >
+        <div class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]">
+          <p class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]">Case 3</p>
+          <h2>
+            <a
+              href="https://github.com/Simerca/AIMeshOptimizer"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-accent-strong underline underline-offset-2 w-fit"
+              >AIMeshOptimizer 🔗 </a
+            >: Blender 기반
+          </h2>
+          <div class="flex items-center justify-between gap-[10px]" aria-label="Case 3 pipeline">
             <div
-              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[92px] [word-break:keep-all]"
+              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
             >
               Blender
             </div>
             <div>→</div>
             <div
-              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[92px] [word-break:keep-all]"
+              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
             >
               Merge by Distance
             </div>
             <div>→</div>
             <div
-              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[92px] [word-break:keep-all]"
+              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
             >
               Delete Loose
             </div>
             <div>→</div>
             <div
-              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[92px] [word-break:keep-all]"
+              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
             >
               Recalculate Normals
             </div>
             <div>→</div>
             <div
-              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[92px] [word-break:keep-all]"
+              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
             >
               Decimate
             </div>
             <div>→</div>
             <div
-              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[92px] [word-break:keep-all]"
+              class="step flex items-center justify-center text-center font-bold leading-[1.25] bg-white border border-line rounded-[8px] p-[14px] min-h-[64px] [word-break:keep-all]"
             >
               Optimized GLB
             </div>
           </div>
           <div class="grid gap-[18px] grid-cols-2 bp-md:grid-cols-1">
             <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
+              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card flex flex-col gap-[8px]"
             >
-              <h3>강점</h3>
+              <h3>특징</h3>
               <ul>
-                <li class="list-disc">기존 appearance coherence 유지</li>
-                <li class="list-disc">구조가 단순하고 빠름</li>
+                <li class="list-disc">구조가 단순하고 빠름(Blender only)</li>
                 <li class="list-disc">
-                  organic, character, texture-heavy asset에 유리
+                  <span class="bg-black text-white"> 새 UV와 rebake를 만들지 않는다 ⭐⭐⭐</span>
+                  <ul class="mt-[4px] ml-[16px] flex flex-col gap-[2px]">
+                    <li class="list-[circle] text-[0.92em] text-ink/70">
+                      메쉬는 단순화하지만 텍스쳐 좌표(UV)는 유지된다
+                    </li>
+                    <li class="list-[circle] text-[0.92em] text-ink/70">
+                      UV map은 비율로써 저장된다
+                    </li>
+                    <li class="list-[circle] text-[0.92em] text-ink/70">
+                      텍스쳐가 축소되지만 구조 자체의 변경은 일어나지 않는다
+                    </li>
+                  </ul>
                 </li>
               </ul>
+              <p class="font-extrabold">→ 기존 모델의 시각적 품질 유지</p>
             </article>
             <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
+              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card overflow-hidden"
             >
-              <h3>한계</h3>
-              <ul>
-                <li class="list-disc">
-                  visibility, curvature, structural importance 없음
-                </li>
-                <li class="list-disc">
-                  extreme reduction에서는 silhouette collapse 가능
-                </li>
-                <li class="list-disc">geometry intelligence는 부족함</li>
-              </ul>
+              <img
+                src="./data/img/single_texture.jpg"
+                alt="single_texture"
+                class="w-full block rounded-[4px] object-contain max-h-[45vh]"
+              />
             </article>
           </div>
         </div>
       </section>
 
       <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
-            Case 3 Detail
-          </p>
-          <h2>Blender-only pipeline이 단순하지만 강했던 이유</h2>
-          <p class="lead text-muted leading-[1.45]">
-            AIMeshOptimizer는 geometry intelligence는 부족하지만, AI mesh가 이미
-            만든 appearance를 덜 깨뜨리는 방향으로 동작했다.
-          </p>
-          <div class="grid gap-[18px] grid-cols-2 bp-md:grid-cols-1">
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>Blender Cleanup</h3>
-              <ul>
-                <li class="list-disc">
-                  <code>Merge by Distance</code>: 중복되거나 가까운 vertex를
-                  병합
-                </li>
-                <li class="list-disc">
-                  <code>Delete Loose</code>: 연결되지 않은 작은 junk geometry
-                  제거
-                </li>
-                <li class="list-disc">
-                  <code>Recalculate Normals</code>: shading 안정화를 위해 normal
-                  방향 재계산
-                </li>
-                <li class="list-disc">
-                  복잡한 perceptual 판단보다는 최소한의 topology cleanup에
-                  가깝다
-                </li>
-              </ul>
-            </article>
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>Blender Decimate</h3>
-              <ul>
-                <li class="list-disc">
-                  Blender의 기본 polygon reduction modifier
-                </li>
-                <li class="list-disc">
-                  기존 UV, texture, shading, tangent continuity를 비교적 잘 유지
-                </li>
-                <li class="list-disc">
-                  새 UV와 rebake를 만들지 않으므로 appearance coherence가 덜
-                  깨짐
-                </li>
-                <li class="list-disc">
-                  단, visibility나 structural importance 같은 intelligence는
-                  없음
-                </li>
-              </ul>
-            </article>
-          </div>
-          <div
-            class="quote py-[20px] px-[24px] border-l-[6px] border-l-accent bg-white shadow-panel rounded-[8px] font-[560] [word-break:keep-all]"
-          >
-            AI 생성 mesh는 geometry correctness보다 <br />
-            texture richness, local shading, silhouette illusion이 품질 인상에
-            더 크게 작용할 수 있었다.
-          </div>
-        </div>
-      </section>
-
-      <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
+        <div class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]">
+          <p class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]">
             Case 3 Result
           </p>
           <h2>AIMeshOptimizer 결과물</h2>
@@ -1172,9 +949,7 @@
                 role="group"
                 aria-label="Case 3 model selection"
               >
-                <button type="button" data-model="tank" class="active">
-                  tank
-                </button>
+                <button type="button" data-model="tank" class="active">tank</button>
                 <button type="button" data-model="building">building</button>
                 <button type="button" data-model="hotel">hotel</button>
                 <button type="button" data-model="tofu">tofu</button>
@@ -1254,15 +1029,54 @@
       </section>
 
       <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
-            Visual Comparison
+        <div class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]">
+          <p class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]">
+            Case 3 Detail
           </p>
-          <h2>결과물 시각적 비교</h2>
+
+          <div class="flex flex-col gap-[18px]">
+            <article class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card">
+              <h3>Blender-only pipeline이 단순하지만 강했던 이유</h3>
+              <p class="lead text-muted leading-[1.45]">
+                텍스쳐 좌표(UV map)와 텍스쳐 구조가 유지되었기 때문
+              </p>
+            </article>
+            <div class="grid grid-cols-3 gap-[18px]">
+              <div>
+                <p>원본 텍스쳐(2048*2048)</p>
+                <img
+                  src="./data/img/tank_resource (2048x2048).png"
+                  alt="원본 텍스처"
+                  class="case-img"
+                />
+              </div>
+              <div>
+                <p>AIMeshOptimizer 텍스쳐(1024*1024)</p>
+                <img
+                  src="./data/img/tank_case3 (1024x1024).png"
+                  alt="Case 3 결과"
+                  class="case-img"
+                />
+              </div>
+              <div>
+                <p>Rebake 텍스쳐(case1 &amp; 2)</p>
+                <img
+                  src="./data/img/tank_case1 (1024x1024).png"
+                  alt="Case 1 결과"
+                  class="case-img"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide">
+        <div class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]">
+          <p class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]">
+            Visual Comparison &amp; Conclusion
+          </p>
+          <h3>시각 품질을 유지한 경량화의 핵심은 Geometry 단순화와 Texture 보존의 균형에 있다.</h3>
           <div class="viewer-shell flex flex-row gap-[18px] bp-md:flex-col">
             <div class="flex flex-col items-stretch flex-shrink-0 gap-[10px]">
               <div
@@ -1271,9 +1085,7 @@
                 role="group"
                 aria-label="Comparison model selection"
               >
-                <button type="button" data-model="tank" class="active">
-                  tank
-                </button>
+                <button type="button" data-model="tank" class="active">tank</button>
                 <button type="button" data-model="building">building</button>
                 <button type="button" data-model="hotel">hotel</button>
                 <button type="button" data-model="tofu">tofu</button>
@@ -1304,7 +1116,7 @@
                   >
                 </div>
                 <div
-                  class="three-viewer relative w-full h-full overflow-hidden min-h-[360px] bg-[#e9eef2]"
+                  class="three-viewer relative w-full h-full overflow-hidden min-h-[220px] bg-[#e9eef2]"
                   data-compare-group="main"
                   data-compare-viewer="resource"
                   data-src="data/resource/tank.glb"
@@ -1332,7 +1144,7 @@
                   >
                 </div>
                 <div
-                  class="three-viewer relative w-full h-full overflow-hidden min-h-[360px] bg-[#e9eef2]"
+                  class="three-viewer relative w-full h-full overflow-hidden min-h-[220px] bg-[#e9eef2]"
                   data-compare-group="main"
                   data-compare-viewer="case1"
                   data-src="data/case1/tank.glb"
@@ -1360,7 +1172,7 @@
                   >
                 </div>
                 <div
-                  class="three-viewer relative w-full h-full overflow-hidden min-h-[360px] bg-[#e9eef2]"
+                  class="three-viewer relative w-full h-full overflow-hidden min-h-[220px] bg-[#e9eef2]"
                   data-compare-group="main"
                   data-compare-viewer="case2"
                   data-src="data/case2/tank.glb"
@@ -1388,7 +1200,7 @@
                   >
                 </div>
                 <div
-                  class="three-viewer relative w-full h-full overflow-hidden min-h-[360px] bg-[#e9eef2]"
+                  class="three-viewer relative w-full h-full overflow-hidden min-h-[220px] bg-[#e9eef2]"
                   data-compare-group="main"
                   data-compare-viewer="case3"
                   data-src="data/case3/tank.glb"
@@ -1407,161 +1219,6 @@
           </div>
         </div>
       </section>
-
-      <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
-            System Complexity
-          </p>
-          <h2>복잡도와 결과 품질은 비례하지 않았다</h2>
-          <p class="lead text-muted leading-[1.45]">
-            세 접근법의 차이는 구현 세부가 아니라 문제를 정의하는 방식의 차이에
-            가까웠다.
-          </p>
-          <table
-            class="bg-white border border-line rounded-[8px] overflow-hidden shadow-card"
-          >
-            <thead>
-              <tr>
-                <th>항목</th>
-                <th>프로토타입</th>
-                <th>PIF 리팩토링</th>
-                <th>AIMeshOptimizer</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>문제 정의</td>
-                <td>messy mesh를 clean low poly로 재구성</td>
-                <td>무엇을 보존할지 정교하게 판단</td>
-                <td>기존 appearance를 최대한 유지</td>
-              </tr>
-              <tr>
-                <td>복잡도</td>
-                <td>중간</td>
-                <td>가장 높음: heuristic과 parameter interaction 증가</td>
-                <td>매우 낮음: Blender 중심의 단순 pipeline</td>
-              </tr>
-              <tr>
-                <td>장점</td>
-                <td>자동화된 low poly 생성</td>
-                <td>stage별 실험, 디버깅, 확장 가능</td>
-                <td>빠르고 안정적이며 유지보수 쉬움</td>
-              </tr>
-              <tr>
-                <td>실패 양상</td>
-                <td>baking artifact와 재현성 부족</td>
-                <td>tuning complexity와 edge case 증가</td>
-                <td>extreme reduction에서 silhouette collapse 가능</td>
-              </tr>
-              <tr>
-                <td>Take-away</td>
-                <td>재구성 자체가 품질 손상의 시작점일 수 있음</td>
-                <td>
-                  정교한 reconstruction도 perceptual quality를 보장하지 않음
-                </td>
-                <td>AI mesh에서는 preserve-first가 더 실용적일 수 있음</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
-            Analysis
-          </p>
-          <h2>Geometry Quality vs Perceptual Quality</h2>
-          <div class="grid gap-[18px] grid-cols-2 bp-md:grid-cols-1">
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>초기 가정</h3>
-              <ul>
-                <li class="list-disc">Messy AI Mesh</li>
-                <li class="list-disc">Cleanup</li>
-                <li class="list-disc">Retopology</li>
-                <li class="list-disc">UV Rebuild</li>
-                <li class="list-disc">Bake</li>
-              </ul>
-              <p class="text-warn font-extrabold">
-                Geometry Reconstruction 중심
-              </p>
-            </article>
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>실제 관찰</h3>
-              <ul>
-                <li class="list-disc">Messy AI Mesh</li>
-                <li class="list-disc">Minimal Cleanup</li>
-                <li class="list-disc">Preserve Existing Representation</li>
-              </ul>
-              <p class="text-good font-extrabold">
-                Appearance Preservation 중심
-              </p>
-            </article>
-          </div>
-          <div
-            class="quote py-[28px] px-[32px] border-l-[6px] border-l-accent bg-white shadow-panel rounded-[8px] leading-[1.25] font-[760] [word-break:keep-all]"
-          >
-            AI 생성 3D mesh 최적화의 핵심은 geometry purity가 아니라 appearance
-            coherence preservation일 수 있다.
-          </div>
-        </div>
-      </section>
-
-      <section class="slide">
-        <div
-          class="slide-inner mx-auto flex flex-col gap-6 w-[min(1280px,100%)]"
-        >
-          <p
-            class="kicker m-0 uppercase tracking-[0.08em] text-accent-strong font-[750]"
-          >
-            Conclusion
-          </p>
-          <h2>AI 생성 mesh의 문제 정의를 다시 봐야 한다</h2>
-          <div class="grid gap-[18px] grid-cols-2 bp-md:grid-cols-1">
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>AI mesh가 이미 가진 것</h3>
-              <ul>
-                <li class="list-disc">texture richness</li>
-                <li class="list-disc">local shading detail</li>
-                <li class="list-disc">silhouette illusion</li>
-                <li class="list-disc">noisy micro detail</li>
-              </ul>
-            </article>
-            <article
-              class="card bg-white border border-line rounded-[8px] p-[22px] shadow-card"
-            >
-              <h3>보존해야 하는 것</h3>
-              <ul>
-                <li class="text-warn font-extrabold">
-                  mathematically clean surface는 항상 정답이 아님
-                </li>
-                <li class="text-good font-extrabold">shading continuity</li>
-                <li class="text-good font-extrabold">texture continuity</li>
-                <li class="text-good font-extrabold">local detail illusion</li>
-              </ul>
-            </article>
-          </div>
-          <p class="lead text-muted leading-[1.45]">
-            지나친 reconstruction은 오히려 AI가 만들어낸 시각적 coherence를
-            파괴할 수 있다.
-          </p>
-        </div>
-      </section>
     </main>
 
     <nav
@@ -1569,37 +1226,32 @@
       aria-label="Slide navigation"
     >
       <button type="button" id="prevBtn" aria-label="Previous slide">‹</button>
-      <div
-        class="min-w-[78px] text-center text-muted text-[14px] font-extrabold"
-      >
+      <div class="min-w-[78px] text-center text-muted text-[14px] font-extrabold">
         <span id="currentSlide">1</span> / <span id="totalSlides">1</span>
       </div>
       <button type="button" id="nextBtn" aria-label="Next slide">›</button>
     </nav>
-    <div
-      class="fixed inset-x-0 bottom-0 z-[21] h-1 bg-[rgba(23,111,143,0.14)]"
-      aria-hidden="true"
-    >
+    <div class="fixed inset-x-0 bottom-0 z-[21] h-1 bg-[rgba(23,111,143,0.14)]" aria-hidden="true">
       <span id="progressBar" class="block h-full bg-accent w-0"></span>
     </div>
 
     <script type="module">
-      import * as THREE from "three";
-      import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-      import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+      import * as THREE from 'three';
+      import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+      import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-      const slides = Array.from(document.querySelectorAll(".slide"));
-      const currentSlide = document.querySelector("#currentSlide");
-      const totalSlides = document.querySelector("#totalSlides");
-      const progressBar = document.querySelector("#progressBar");
-      const prevBtn = document.querySelector("#prevBtn");
-      const nextBtn = document.querySelector("#nextBtn");
-      const models = ["tank", "building", "hotel", "tofu"];
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const currentSlide = document.querySelector('#currentSlide');
+      const totalSlides = document.querySelector('#totalSlides');
+      const progressBar = document.querySelector('#progressBar');
+      const prevBtn = document.querySelector('#prevBtn');
+      const nextBtn = document.querySelector('#nextBtn');
+      const models = ['tank', 'building', 'hotel', 'tofu'];
       const paths = {
-        resource: "data/resource",
-        case1: "data/case1",
-        case2: "data/case2",
-        case3: "data/case3",
+        resource: 'data/resource',
+        case1: 'data/case1',
+        case2: 'data/case2',
+        case3: 'data/case3'
       };
       let slideIndex = 0;
       let isSyncingCamera = false;
@@ -1617,7 +1269,7 @@
       function showSlide(index) {
         slideIndex = Math.max(0, Math.min(slides.length - 1, index));
         slides.forEach((slide, current) => {
-          slide.classList.toggle("active", current === slideIndex);
+          slide.classList.toggle('active', current === slideIndex);
         });
         currentSlide.textContent = String(slideIndex + 1);
         progressBar.style.width = `${((slideIndex + 1) / slides.length) * 100}%`;
@@ -1627,16 +1279,14 @@
       }
 
       function setActiveButton(group, model) {
-        group.querySelectorAll("[data-model]").forEach((button) => {
-          button.classList.toggle("active", button.dataset.model === model);
+        group.querySelectorAll('[data-model]').forEach((button) => {
+          button.classList.toggle('active', button.dataset.model === model);
         });
       }
 
       function updateSingleViewer(caseName, model) {
         const viewer = singleViewers.get(caseName);
-        const label = document.querySelector(
-          `[data-model-label="${caseName}"]`,
-        );
+        const label = document.querySelector(`[data-model-label="${caseName}"]`);
         const group = compareGroups.get(`${caseName}-result`);
         if (viewer) {
           loadModel(viewer, `${paths[caseName]}/${model}.glb`);
@@ -1650,20 +1300,20 @@
       }
 
       function updateComparison(model) {
-        const group = compareGroups.get("main") || compareViewers;
+        const group = compareGroups.get('main') || compareViewers;
         group.forEach((viewer, type) => {
           loadModel(viewer, `${paths[type]}/${model}.glb`);
         });
       }
 
-      document.querySelectorAll("[data-model-selector]").forEach((selector) => {
-        selector.addEventListener("click", (event) => {
-          const button = event.target.closest("[data-model]");
+      document.querySelectorAll('[data-model-selector]').forEach((selector) => {
+        selector.addEventListener('click', (event) => {
+          const button = event.target.closest('[data-model]');
           if (!button) return;
           const model = button.dataset.model;
           const target = selector.dataset.modelSelector;
           setActiveButton(selector, model);
-          if (target === "comparison") {
+          if (target === 'comparison') {
             updateComparison(model);
           } else {
             updateSingleViewer(target, model);
@@ -1674,29 +1324,35 @@
       function setViewerStatus(viewer, message, isHidden = false) {
         if (!viewer.status) return;
         viewer.status.textContent = message;
-        viewer.status.classList.toggle("hidden", isHidden);
+        viewer.status.classList.toggle('hidden', isHidden);
       }
 
       function createStatsOverlay(container) {
-        const stats = document.createElement("div");
+        const stats = document.createElement('div');
         stats.className =
-          "viewer-stats hidden absolute right-[12px] top-[12px] z-[2] grid gap-[3px] min-w-[128px] px-[10px] py-[8px] rounded-[6px] text-accent-strong bg-white/[0.9] border border-line text-[12px] font-[800] leading-[1.25] pointer-events-none shadow-card";
-        stats.setAttribute("aria-live", "polite");
+          'viewer-stats hidden absolute right-[12px] top-[12px] z-[2] grid gap-[3px] min-w-[128px] px-[10px] py-[8px] rounded-[6px] text-accent-strong bg-white/[0.9] border border-line text-[12px] font-[800] leading-[1.25] pointer-events-none shadow-card';
+        stats.setAttribute('aria-live', 'polite');
         container.appendChild(stats);
         return stats;
+      }
+
+      function formatFileSize(bytes) {
+        if (bytes >= 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        if (bytes >= 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return bytes + ' B';
       }
 
       function getMeshStats(root) {
         const stats = {
           vertices: 0,
-          triangles: 0,
+          triangles: 0
         };
 
         root.traverse((node) => {
           if (!node.isMesh || !node.geometry) return;
 
           const geometry = node.geometry;
-          const position = geometry.getAttribute("position");
+          const position = geometry.getAttribute('position');
           if (!position) return;
 
           stats.vertices += position.count;
@@ -1712,16 +1368,17 @@
       function setViewerStats(viewer, stats) {
         if (!viewer.stats) return;
         if (!stats) {
-          viewer.stats.classList.add("hidden");
-          viewer.stats.textContent = "";
+          viewer.stats.classList.add('hidden');
+          viewer.stats.textContent = '';
           return;
         }
 
         viewer.stats.innerHTML = `
           <span>Vertices ${stats.vertices.toLocaleString()}</span>
           <span>Triangles ${stats.triangles.toLocaleString()}</span>
+          <span>Size ${stats.fileSize != null ? formatFileSize(stats.fileSize) : '–'}</span>
         `;
-        viewer.stats.classList.remove("hidden");
+        viewer.stats.classList.remove('hidden');
       }
 
       function createThreeViewer(container, options = {}) {
@@ -1733,7 +1390,7 @@
 
         const renderer = new THREE.WebGLRenderer({
           antialias: true,
-          alpha: false,
+          alpha: false
         });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
         renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -1760,7 +1417,7 @@
 
         const viewer = {
           container,
-          status: container.querySelector(".viewer-status"),
+          status: container.querySelector('.viewer-status'),
           stats: createStatsOverlay(container),
           scene,
           camera,
@@ -1768,25 +1425,25 @@
           controls,
           modelRoot: null,
           isCompare: Boolean(options.isCompare),
-          compareGroup: options.compareGroup || "",
-          type: options.type || "",
-          currentUrl: container.dataset.src || "",
+          compareGroup: options.compareGroup || '',
+          type: options.type || '',
+          currentUrl: container.dataset.src || ''
         };
 
-        controls.addEventListener("start", () => {
+        controls.addEventListener('start', () => {
           if (viewer.isCompare) {
             activeCompareViewer = viewer;
             isUserControllingCompareViewer = true;
           }
         });
 
-        controls.addEventListener("end", () => {
+        controls.addEventListener('end', () => {
           if (viewer.isCompare && activeCompareViewer === viewer) {
             isUserControllingCompareViewer = false;
           }
         });
 
-        controls.addEventListener("change", () => {
+        controls.addEventListener('change', () => {
           if (
             viewer.isCompare &&
             viewer === activeCompareViewer &&
@@ -1797,24 +1454,24 @@
           renderViewer(viewer);
         });
 
-        container.addEventListener("pointerdown", () => {
+        container.addEventListener('pointerdown', () => {
           if (viewer.isCompare) activeCompareViewer = viewer;
         });
         container.addEventListener(
-          "wheel",
+          'wheel',
           () => {
             if (viewer.isCompare) activeCompareViewer = viewer;
           },
-          { passive: true },
+          { passive: true }
         );
         container.addEventListener(
-          "touchstart",
+          'touchstart',
           () => {
             if (viewer.isCompare) activeCompareViewer = viewer;
           },
-          { passive: true },
+          { passive: true }
         );
-        container.addEventListener("focus", () => {
+        container.addEventListener('focus', () => {
           if (viewer.isCompare) activeCompareViewer = viewer;
         });
 
@@ -1827,9 +1484,7 @@
       function disposeObject(object) {
         object.traverse((node) => {
           if (node.geometry) node.geometry.dispose();
-          const materials = Array.isArray(node.material)
-            ? node.material
-            : [node.material];
+          const materials = Array.isArray(node.material) ? node.material : [node.material];
           materials.filter(Boolean).forEach((material) => {
             Object.values(material).forEach((value) => {
               if (value && value.isTexture) value.dispose();
@@ -1866,12 +1521,17 @@
 
       async function loadModel(viewer, url) {
         viewer.currentUrl = url;
-        setViewerStatus(viewer, `Loading ${url.split("/").pop()}`);
+        setViewerStatus(viewer, `Loading ${url.split('/').pop()}`);
         setViewerStats(viewer, null);
         disposeModel(viewer);
 
         try {
-          const gltf = await loader.loadAsync(url);
+          const response = await fetch(url);
+          const arrayBuffer = await response.arrayBuffer();
+          const fileSize = arrayBuffer.byteLength;
+          if (viewer.currentUrl !== url) return;
+          const basePath = url.substring(0, url.lastIndexOf('/') + 1);
+          const gltf = await loader.parseAsync(arrayBuffer, basePath);
           if (viewer.currentUrl !== url) {
             disposeObject(gltf.scene);
             return;
@@ -1883,9 +1543,7 @@
               node.castShadow = false;
               node.receiveShadow = false;
               if (node.material) {
-                const materials = Array.isArray(node.material)
-                  ? node.material
-                  : [node.material];
+                const materials = Array.isArray(node.material) ? node.material : [node.material];
                 materials.forEach((material) => {
                   material.needsUpdate = true;
                 });
@@ -1894,23 +1552,21 @@
           });
 
           const stats = getMeshStats(root);
+          stats.fileSize = fileSize;
           normalizeModel(root);
           viewer.modelRoot = root;
           viewer.scene.add(root);
           setViewerStats(viewer, stats);
           if (viewer.isCompare) {
-            setWireframe(
-              viewer,
-              Boolean(wireframeByGroup.get(viewer.compareGroup)),
-            );
+            setWireframe(viewer, Boolean(wireframeByGroup.get(viewer.compareGroup)));
           }
           resetCamera(viewer);
           resizeViewer(viewer);
-          setViewerStatus(viewer, "", true);
+          setViewerStatus(viewer, '', true);
           renderViewer(viewer);
         } catch (error) {
           console.error(error);
-          setViewerStatus(viewer, `Failed to load ${url.split("/").pop()}`);
+          setViewerStatus(viewer, `Failed to load ${url.split('/').pop()}`);
           setViewerStats(viewer, null);
         }
       }
@@ -1953,8 +1609,7 @@
         const canvas = viewer.renderer.domElement;
 
         if (
-          canvas.width !==
-            Math.floor(width * viewer.renderer.getPixelRatio()) ||
+          canvas.width !== Math.floor(width * viewer.renderer.getPixelRatio()) ||
           canvas.height !== Math.floor(height * viewer.renderer.getPixelRatio())
         ) {
           viewer.renderer.setSize(width, height, false);
@@ -1977,9 +1632,7 @@
 
         viewer.modelRoot.traverse((node) => {
           if (!node.isMesh || !node.material) return;
-          const materials = Array.isArray(node.material)
-            ? node.material
-            : [node.material];
+          const materials = Array.isArray(node.material) ? node.material : [node.material];
           materials.filter(Boolean).forEach((material) => {
             material.wireframe = enabled;
             material.needsUpdate = true;
@@ -1996,85 +1649,94 @@
         group.forEach((viewer) => setWireframe(viewer, enabled));
       }
 
-      document.querySelectorAll("[data-wireframe-toggle]").forEach((button) => {
-        button.addEventListener("click", (event) => {
+      document.querySelectorAll('[data-wireframe-toggle]').forEach((button) => {
+        button.addEventListener('click', (event) => {
           const groupName = event.currentTarget.dataset.wireframeToggle;
           const nextValue = !Boolean(wireframeByGroup.get(groupName));
           setComparisonWireframe(groupName, nextValue);
-          event.currentTarget.classList.toggle("active", nextValue);
-          event.currentTarget.setAttribute("aria-pressed", String(nextValue));
+          event.currentTarget.classList.toggle('active', nextValue);
+          event.currentTarget.setAttribute('aria-pressed', String(nextValue));
         });
       });
 
-      document.querySelectorAll("[data-single-viewer]").forEach((container) => {
+      document.querySelectorAll('[data-single-viewer]').forEach((container) => {
         const caseName = container.dataset.singleViewer;
-        singleViewers.set(
-          caseName,
-          createThreeViewer(container, { type: caseName }),
-        );
+        singleViewers.set(caseName, createThreeViewer(container, { type: caseName }));
       });
 
-      document
-        .querySelectorAll("[data-compare-viewer]")
-        .forEach((container) => {
-          const type = container.dataset.compareViewer;
-          const compareGroup = container.dataset.compareGroup || "main";
-          const viewer = createThreeViewer(container, {
-            type,
-            compareGroup,
-            isCompare: true,
-          });
-          if (!compareGroups.has(compareGroup)) {
-            compareGroups.set(compareGroup, new Map());
-          }
-          compareGroups.get(compareGroup).set(type, viewer);
-          if (compareGroup === "main") {
-            compareViewers.set(type, viewer);
-          }
+      document.querySelectorAll('[data-compare-viewer]').forEach((container) => {
+        const type = container.dataset.compareViewer;
+        const compareGroup = container.dataset.compareGroup || 'main';
+        const viewer = createThreeViewer(container, {
+          type,
+          compareGroup,
+          isCompare: true
         });
+        if (!compareGroups.has(compareGroup)) {
+          compareGroups.set(compareGroup, new Map());
+        }
+        compareGroups.get(compareGroup).set(type, viewer);
+        if (compareGroup === 'main') {
+          compareViewers.set(type, viewer);
+        }
+      });
 
-      prevBtn.addEventListener("click", () => showSlide(slideIndex - 1));
-      nextBtn.addEventListener("click", () => showSlide(slideIndex + 1));
+      prevBtn.addEventListener('click', () => showSlide(slideIndex - 1));
+      nextBtn.addEventListener('click', () => showSlide(slideIndex + 1));
 
-      window.addEventListener("keydown", (event) => {
+      window.addEventListener('keydown', (event) => {
         const tag = document.activeElement && document.activeElement.tagName;
-        if (tag === "BUTTON" && event.key === "Enter") return;
+        if (tag === 'BUTTON' && event.key === 'Enter') return;
         if (
-          event.key === "ArrowRight" ||
-          event.key === "ArrowDown" ||
-          event.key === "PageDown" ||
-          event.key === " "
+          event.key === 'ArrowRight' ||
+          event.key === 'ArrowDown' ||
+          event.key === 'PageDown' ||
+          event.key === ' '
         ) {
           event.preventDefault();
           showSlide(slideIndex + 1);
         }
         if (
-          event.key === "ArrowLeft" ||
-          event.key === "ArrowUp" ||
-          event.key === "PageUp" ||
-          event.key === "Backspace"
+          event.key === 'ArrowLeft' ||
+          event.key === 'ArrowUp' ||
+          event.key === 'PageUp' ||
+          event.key === 'Backspace'
         ) {
           event.preventDefault();
           showSlide(slideIndex - 1);
         }
-        if (event.key === "Home") {
+        if (event.key === 'Home') {
           event.preventDefault();
           showSlide(0);
         }
-        if (event.key === "End") {
+        if (event.key === 'End') {
           event.preventDefault();
           showSlide(slides.length - 1);
         }
       });
 
       models.forEach((model) => {
-        const link = document.createElement("link");
-        link.rel = "prefetch";
+        const link = document.createElement('link');
+        link.rel = 'prefetch';
         link.href = `data/resource/${model}.glb`;
         document.head.appendChild(link);
       });
 
-      window.addEventListener("resize", resizeAllViewers);
+      window.addEventListener('resize', resizeAllViewers);
+
+      document.querySelectorAll('[data-tabpanel-group]').forEach((group) => {
+        group.addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-tab]');
+          if (!btn) return;
+          const tabId = btn.dataset.tab;
+          group
+            .querySelectorAll('[data-tab]')
+            .forEach((b) => b.classList.toggle('active', b === btn));
+          group.querySelectorAll('[data-tab-panel]').forEach((panel) => {
+            panel.hidden = panel.dataset.tabPanel !== tabId;
+          });
+        });
+      });
 
       showSlide(0);
     </script>
